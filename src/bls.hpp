@@ -19,7 +19,7 @@
 #include <map>
 #include <string>
 
-#include "relic_conf.h"
+#include "external/relic/include/relic_conf.h"
 
 #if defined GMP && ARITH == GMP
 #include <gmp.h>
@@ -32,8 +32,8 @@
 #include "aggregationinfo.hpp"
 
 
-#include "relic.h"
-#include "relic_test.h"
+#include "external/relic/include/relic.h"
+#include "external/relic/include/relic_test.h"
 
 namespace bls {
 

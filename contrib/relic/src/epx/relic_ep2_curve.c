@@ -410,10 +410,6 @@ void ep2_curve_set_twist(int type) {
 			case BN_P254:
 				ASSIGN(BN_P254);
 				break;
-#elif FP_PRIME == 256
-			case BN_P256:
-				ASSIGN(BN_P256);
-				break;
 #elif FP_PRIME == 381
 			case B12_P381:
 				ASSIGN(B12_P381);

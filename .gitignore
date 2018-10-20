@@ -46,3 +46,4 @@ blsbench.*
 *.pb.h
 
 **/.DS_Store
+bazel-*

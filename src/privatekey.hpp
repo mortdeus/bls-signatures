@@ -15,7 +15,7 @@
 #ifndef SRC_BLSPRIVATEKEY_HPP_
 #define SRC_BLSPRIVATEKEY_HPP_
 
-#include "relic_conf.h"
+#include "external/relic/include/relic_conf.h"
 
 #if defined GMP && ARITH == GMP
 #include <gmp.h>
@@ -23,6 +23,9 @@
 
 #include "publickey.hpp"
 #include "signature.hpp"
+
+#include "external/relic/include/relic.h"
+#include "external/relic/include/relic_test.h"
 namespace bls {
 class PrivateKey {
  public:

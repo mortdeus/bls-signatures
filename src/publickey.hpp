@@ -18,13 +18,16 @@
 #include <iostream>
 #include <vector>
 
-#include "relic_conf.h"
+#include "external/relic/include/relic_conf.h"
 
 #if defined GMP && ARITH == GMP
 #include <gmp.h>
 #endif
 
 #include "util.hpp"
+
+#include "external/relic/include/relic.h"
+#include "external/relic/include/relic_test.h"
 namespace bls {
 /** An encapsulated public key. */
 class PublicKey {

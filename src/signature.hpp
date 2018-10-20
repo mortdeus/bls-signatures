@@ -18,7 +18,7 @@
 #include <iostream>
 #include <vector>
 
-#include "relic_conf.h"
+#include "external/relic/include/relic_conf.h"
 
 #if defined GMP && ARITH == GMP
 #include <gmp.h>
@@ -26,6 +26,9 @@
 
 #include "util.hpp"
 #include "aggregationinfo.hpp"
+
+#include "external/relic/include/relic.h"
+#include "external/relic/include/relic_test.h"
 namespace bls {
 /**
  * An insecure BLS signature.

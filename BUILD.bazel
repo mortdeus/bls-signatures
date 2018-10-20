@@ -1,0 +1,30 @@
+# https://docs.bazel.build/versions/master/be/c-cpp.html#cc_library
+cc_library(
+    name = "bls-signatures-lib",
+    srcs = [
+        "src/aggregationinfo.cpp",
+        "src/bls.cpp",
+        "src/chaincode.cpp",
+        "src/extendedprivatekey.cpp",
+        "src/extendedpublickey.cpp",
+        "src/privatekey.cpp",
+        "src/publickey.cpp",
+        "src/signature.cpp",
+    ],
+    hdrs = [
+        "src/aggregationinfo.hpp",
+        "src/bls.hpp",
+        "src/chaincode.hpp",
+        "src/extendedprivatekey.hpp",
+        "src/extendedpublickey.hpp",
+        "src/privatekey.hpp",
+        "src/publickey.hpp",
+        "src/signature.hpp",
+        "src/util.hpp"
+    ],
+    deps = [
+        "@relic//:relic-lib",
+    ],
+    includes = ["include"],
+    visibility = ["//visibility:public"],
+)

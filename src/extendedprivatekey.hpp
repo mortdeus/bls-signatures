@@ -15,7 +15,7 @@
 #ifndef SRC_EXTENDEDPRIVATEKEY_HPP_
 #define SRC_EXTENDEDPRIVATEKEY_HPP_
 
-#include "relic_conf.h"
+#include "external/relic/include/relic_conf.h"
 
 #include <vector>
 
@@ -29,8 +29,8 @@
 #include "extendedpublickey.hpp"
 
 
-#include "relic.h"
-#include "relic_test.h"
+#include "external/relic/include/relic.h"
+#include "external/relic/include/relic_test.h"
 
 namespace bls {
 /*

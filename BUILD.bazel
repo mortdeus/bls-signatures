@@ -174,8 +174,6 @@ cc_library(
         "contrib/relic/src/relic_core.c",
         "contrib/relic/src/relic_err.c",
         "contrib/relic/src/relic_pool.c",
-        "contrib/relic/src/relic_test.c",
-        "contrib/relic/src/relic_trace.c",
         "contrib/relic/src/relic_util.c",
     ],
     hdrs = [
@@ -218,8 +216,6 @@ cc_library(
         "contrib/relic/include/relic_pool.h",
         "contrib/relic/include/relic_pp.h",
         "contrib/relic/include/relic_rand.h",
-        "contrib/relic/include/relic_test.h",
-        "contrib/relic/include/relic_trace.h",
         "contrib/relic/include/relic_types.h",
         "contrib/relic/include/relic_util.h",
         "contrib/relic/include/low/relic_dv_low.h",

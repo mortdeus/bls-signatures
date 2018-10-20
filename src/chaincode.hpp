@@ -18,15 +18,15 @@
 #include <iostream>
 #include <vector>
 
-#include "external/relic/include/relic_conf.h"
+#include "../contrib/relic/include/relic_conf.h"
 
 #if defined GMP && ARITH == GMP
 #include <gmp.h>
 #endif
 
 
-#include "external/relic/include/relic.h"
-#include "external/relic/include/relic_test.h"
+#include "../contrib/relic/include/relic.h"
+#include "../contrib/relic/include/relic_test.h"
 
 #include "util.hpp"
 namespace bls {

@@ -188,7 +188,6 @@ cc_library(
         "src/util.hpp",
         "contrib/relic/src/bc/rijndael-alg-fst.h",
         "contrib/relic/src/bc/rijndael-api-fst.h",
-        "contrib/relic/src/md/blake2-impl.h",
         "contrib/relic/src/md/blake2.h",
         "contrib/relic/src/md/sha.h",
         "contrib/relic/include/relic.h",

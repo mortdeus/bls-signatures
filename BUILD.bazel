@@ -207,7 +207,6 @@ cc_library(
         "contrib/relic/include/relic_epx.h",
         "contrib/relic/include/relic_err.h",
         "contrib/relic/include/relic_fb.h",
-        "contrib/relic/include/relic_fbx.h",
         "contrib/relic/include/relic_fp.h",
         "contrib/relic/include/relic_fpx.h",
         "contrib/relic/include/relic_label.h",

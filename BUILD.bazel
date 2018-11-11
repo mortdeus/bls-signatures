@@ -259,6 +259,8 @@ go_library(
     srcs = ["bls.go"],
     cdeps = [":bls-signatures-lib"],
     cgo = True,
+    clinkopts = ["-lstdc++"],
+    copts = ["-Isrc"],
     importpath = "github.com/prysmaticslabs/bls-signatures",
     visibility = ["//visibility:public"],
 )

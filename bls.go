@@ -1,8 +1,8 @@
 package bls
 
 /*
-#cgo CFLAGS: -Isrc
-#cgo LDFLAGS: -Lsrc
+#cgo CFLAGS:-Isrc
+#cgo LDFLAGS:-lstdc++
 #include "src/bls_cgo.h"
 */
 import "C"

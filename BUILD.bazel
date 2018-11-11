@@ -1,8 +1,13 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+# gazelle:prefix github.com/prysmaticslabs/bls-signatures
+gazelle(name = "gazelle")
+
 # https://docs.bazel.build/versions/master/be/c-cpp.html#cc_library
 cc_library(
     name = "bls-signatures-lib",
     srcs = [
-        "src/bls_cgo.cpp",
         "src/aggregationinfo.cpp",
         "src/bls.cpp",
         "src/chaincode.cpp",
@@ -11,6 +16,7 @@ cc_library(
         "src/privatekey.cpp",
         "src/publickey.cpp",
         "src/signature.cpp",
+        "src/cgo_interface.c",
         "contrib/relic/src/bc/relic_bc_aes.c",
         "contrib/relic/src/bc/rijndael-alg-fst.c",
         "contrib/relic/src/bc/rijndael-api-fst.c",
@@ -187,6 +193,7 @@ cc_library(
         "src/publickey.hpp",
         "src/signature.hpp",
         "src/util.hpp",
+        "src/cgo_interface.h",
         "contrib/relic/src/bc/rijndael-alg-fst.h",
         "contrib/relic/src/bc/rijndael-api-fst.h",
         "contrib/relic/src/md/blake2.h",
@@ -226,6 +233,32 @@ cc_library(
         "contrib/relic/include/low/relic_bn_low.h",
         "contrib/relic/include/low/relic_fpx_low.h",
     ],
-    includes = ["include", "contrib/relic/include", "contrib/relic/include/low"],
+    includes = [
+        "include",
+        "contrib/relic/include",
+        "contrib/relic/include/low",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "tests",
+    srcs = [
+        "contrib/catch/catch.hpp",
+        "src/test-utils.hpp",
+        "src/test.cpp",
+    ],
+    includes = [
+        "contrib/catch",
+    ],
+    deps = [":bls-signatures-lib"],
+)
+
+go_library(
+    name = "go_default_library",
+    srcs = ["bls.go"],
+    cdeps = [":bls-signatures-lib"],
+    cgo = True,
+    importpath = "github.com/prysmaticslabs/bls-signatures",
     visibility = ["//visibility:public"],
 )

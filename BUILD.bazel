@@ -4,19 +4,9 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 # gazelle:prefix github.com/prysmaticslabs/bls-signatures
 gazelle(name = "gazelle")
 
-# https://docs.bazel.build/versions/master/be/c-cpp.html#cc_library
 cc_library(
-    name = "bls-signatures-lib",
+    name = "relic",
     srcs = [
-        "src/bls_cgo.cpp",
-        "src/aggregationinfo.cpp",
-        "src/bls.cpp",
-        "src/chaincode.cpp",
-        "src/extendedprivatekey.cpp",
-        "src/extendedpublickey.cpp",
-        "src/privatekey.cpp",
-        "src/publickey.cpp",
-        "src/signature.cpp",
         "contrib/relic/src/bc/relic_bc_aes.c",
         "contrib/relic/src/bc/rijndael-alg-fst.c",
         "contrib/relic/src/bc/rijndael-api-fst.c",
@@ -184,16 +174,6 @@ cc_library(
         "contrib/relic/src/relic_util.c",
     ],
     hdrs = [
-        "src/bls_cgo.hpp",
-        "src/aggregationinfo.hpp",
-        "src/bls.hpp",
-        "src/chaincode.hpp",
-        "src/extendedprivatekey.hpp",
-        "src/extendedpublickey.hpp",
-        "src/privatekey.hpp",
-        "src/publickey.hpp",
-        "src/signature.hpp",
-        "src/util.hpp",
         "contrib/relic/src/bc/rijndael-alg-fst.h",
         "contrib/relic/src/bc/rijndael-api-fst.h",
         "contrib/relic/src/md/blake2.h",
@@ -234,9 +214,42 @@ cc_library(
         "contrib/relic/include/low/relic_fpx_low.h",
     ],
     includes = [
-        "include",
         "contrib/relic/include",
         "contrib/relic/include/low",
+    ],
+)
+
+# https://docs.bazel.build/versions/master/be/c-cpp.html#cc_library
+cc_library(
+    name = "bls-signatures-lib",
+    srcs = [
+        "src/bls_cgo.cpp",
+        "src/aggregationinfo.cpp",
+        "src/bls.cpp",
+        "src/chaincode.cpp",
+        "src/extendedprivatekey.cpp",
+        "src/extendedpublickey.cpp",
+        "src/privatekey.cpp",
+        "src/publickey.cpp",
+        "src/signature.cpp",
+    ],
+    hdrs = [
+        "src/bls_cgo.hpp",
+        "src/aggregationinfo.hpp",
+        "src/bls.hpp",
+        "src/chaincode.hpp",
+        "src/extendedprivatekey.hpp",
+        "src/extendedpublickey.hpp",
+        "src/privatekey.hpp",
+        "src/publickey.hpp",
+        "src/signature.hpp",
+        "src/util.hpp",
+    ],
+    includes = [
+        "include",
+    ],
+    deps = [
+        ":relic",
     ],
     visibility = ["//visibility:public"],
 )
@@ -247,16 +260,24 @@ cc_test(
         "contrib/catch/catch.hpp",
         "src/test-utils.hpp",
         "src/test.cpp",
+        "src/bls.hpp",
     ],
     includes = [
         "contrib/catch",
     ],
-    deps = [":bls-signatures-lib"],
+    deps = [
+        ":bls-signatures-lib",
+    ],
+    tags = ["manual"],  # this target doesn't build.
 )
 
 go_library(
     name = "go_default_library",
-    srcs = ["bls.go"],
+    srcs = [
+        "bls.go",
+        "bls_cgo.cpp",
+        "bls_cgo.h",
+    ],
     cdeps = [":bls-signatures-lib"],
     cgo = True,
     clinkopts = ["-lstdc++"],

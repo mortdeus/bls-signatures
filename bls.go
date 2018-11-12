@@ -1,16 +1,23 @@
 package bls
 
 /*
-#cgo CFLAGS:-Isrc
+#cgo CFLAGS:-I ${SRCDIR}/src -I ${SRCDIR}/contrib/relic/include
+#cgo CXXFLAGS: -std=c++11
 #cgo LDFLAGS:-lstdc++
-#include "src/bls_cgo.h"
+#include "src/bls_cgo.cpp"
 */
 import "C"
+import "unsafe"
 
-type Key struct {
+// PrivateKey --
+type PrivateKey struct{}
+
+func (priv *PrivateKey) getPointer() (p *C.blsPrivateKey) {
+	// #nosec
+	return (*C.blsPrivateKey)(unsafe.Pointer(priv))
 }
 
-func NewKey() *Key {
-	C.blsPrivateKeyFromSeed(nil, nil, 0)
-	return nil
+// SetFromBytes --
+func (priv *PrivateKey) SetFromBytes(data []byte) {
+	C.blsPrivateKeyFromBytes(priv.getPointer(), unsafe.Pointer(&data[0]), 1)
 }

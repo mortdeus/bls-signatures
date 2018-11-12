@@ -1,5 +1,5 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 # gazelle:prefix github.com/prysmaticslabs/bls-signatures
 gazelle(name = "gazelle")
@@ -184,7 +184,7 @@ cc_library(
         "contrib/relic/src/relic_util.c",
     ],
     hdrs = [
-        "src/bls_cgo.h",
+        "src/bls_cgo.hpp",
         "src/aggregationinfo.hpp",
         "src/bls.hpp",
         "src/chaincode.hpp",
@@ -260,7 +260,16 @@ go_library(
     cdeps = [":bls-signatures-lib"],
     cgo = True,
     clinkopts = ["-lstdc++"],
-    copts = ["-Isrc"],
+    copts = [
+        "-I /src -I /contrib/relic/include",
+        "-std=c++11",
+    ],
     importpath = "github.com/prysmaticslabs/bls-signatures",
     visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["bls_test.go"],
+    embed = [":go_default_library"],
 )

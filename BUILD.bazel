@@ -264,16 +264,20 @@ cc_test(
     ],
     includes = [
         "contrib/catch",
-        "include",
     ],
     deps = [
         ":bls-signatures-lib",
     ],
+    tags = ["manual"],  # this target doesn't build.
 )
 
 go_library(
     name = "go_default_library",
-    srcs = ["bls.go"],
+    srcs = [
+        "bls.go",
+        "bls_cgo.cpp",
+        "bls_cgo.h",
+    ],
     cdeps = [":bls-signatures-lib"],
     cgo = True,
     clinkopts = ["-lstdc++"],

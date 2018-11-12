@@ -234,7 +234,7 @@ cc_library(
         "src/signature.cpp",
     ],
     hdrs = [
-        "src/bls_cgo.hpp",
+        "src/bls_cgo.h",
         "src/aggregationinfo.hpp",
         "src/bls.hpp",
         "src/chaincode.hpp",
@@ -274,16 +274,15 @@ cc_test(
 go_library(
     name = "go_default_library",
     srcs = [
-        "bls.go",
-        "bls_cgo.cpp",
-        "bls_cgo.h",
+        "src/bls.go",
+        "src/bls_cgo.h",
+        "src/bls_cgo.cpp",
     ],
-    cdeps = [":bls-signatures-lib"],
+    cdeps = [":bls-signatures-lib", ":relic"],
     cgo = True,
     clinkopts = ["-lstdc++"],
     copts = [
-        "-I /src -I /contrib/relic/include",
-        "-std=c++11",
+        "-I src -I contrib/relic/include",
     ],
     importpath = "github.com/prysmaticslabs/bls-signatures",
     visibility = ["//visibility:public"],
@@ -291,6 +290,6 @@ go_library(
 
 go_test(
     name = "go_default_test",
-    srcs = ["bls_test.go"],
+    srcs = ["src/bls_test.go"],
     embed = [":go_default_library"],
 )

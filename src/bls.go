@@ -1,10 +1,10 @@
 package bls
 
 /*
-#cgo CFLAGS:-I ${SRCDIR}/src -I ${SRCDIR}/contrib/relic/include
+#cgo CFLAGS:-I ${SRCDIR}../contrib/relic/include
 #cgo CXXFLAGS: -std=c++11
 #cgo LDFLAGS:-lstdc++
-#include "src/bls_cgo.cpp"
+#include "bls_cgo.hpp"
 */
 import "C"
 import "unsafe"

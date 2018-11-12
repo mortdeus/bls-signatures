@@ -1,9 +1,9 @@
 package bls
 
 /*
-#cgo CFLAGS:-I ${SRCDIR}../contrib/relic/include
+#cgo CFLAGS:-I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/include -I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/src -I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/lib
 #cgo CXXFLAGS: -std=c++11
-#cgo LDFLAGS:-lstdc++
+#cgo LDFLAGS:-L/home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/lib -lrelic_s -lgmp -lstdc++
 #include "bls_cgo.hpp"
 */
 import "C"
@@ -18,6 +18,6 @@ func (priv *PrivateKey) getPointer() (p *C.blsPrivateKey) {
 }
 
 // SetFromBytes --
-func (priv *PrivateKey) SetFromBytes(data []byte) {
-	C.blsPrivateKeyFromBytes(priv.getPointer(), unsafe.Pointer(&data[0]), 1)
+func (priv *PrivateKey) SetFromBytes() {
+	C.blsPrivateKeyFromBytes(priv.getPointer())
 }

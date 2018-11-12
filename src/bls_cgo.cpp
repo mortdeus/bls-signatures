@@ -16,8 +16,8 @@ void blsPrivateKeyFromSeed(blsPrivateKey *priv, const uint8_t* seed, size_t seed
     cast(priv)->FromSeed(seed, seedLen);
 }
 
-void blsPrivateKeyFromBytes(blsPrivateKey *priv, const uint8_t* bytes, int modOrder) {
-    cast(priv)->FromBytes(bytes, modOrder);
+void blsPrivateKeyFromBytes(blsPrivateKey *priv) {
+    return;
 }
 
 void blsPublicKeyFromBytes(blsPublicKey *pub, const uint8_t* key) {

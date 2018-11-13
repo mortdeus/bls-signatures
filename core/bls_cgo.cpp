@@ -1,3 +1,4 @@
+#include <iostream>
 #include "bls_cgo.hpp"
 #include "bls.hpp"
 
@@ -12,30 +13,12 @@ static const PublicKey *cast(const blsPublicKey *p) { return reinterpret_cast<co
 static Signature *cast(blsSignature *p) { return reinterpret_cast<Signature*>(p); }
 static const Signature *cast(const blsSignature *p) { return reinterpret_cast<const Signature*>(p); }
 
-void blsPrivateKeyFromSeed(blsPrivateKey *priv, const uint8_t* seed, size_t seedLen) {
+void blsPrivateKeyFromSeed(blsPrivateKey* priv, const uint8_t* seed, size_t seedLen) {
     cast(priv)->FromSeed(seed, seedLen);
 }
 
-void blsPrivateKeyFromBytes(blsPrivateKey *priv) {
-    return;
-}
-
-void blsPublicKeyFromBytes(blsPublicKey *pub, const uint8_t* key) {
-    cast(pub)->FromBytes(key);
-}
-
-void blsGetPublicKey(void* pub, blsPrivateKey *priv) {
-    PublicKey p = cast(priv)->GetPublicKey();
-    pub = &p;
-}
-
-void blsPrivateKeySign(blsPrivateKey *priv, void* sign, const uint8_t *msg, size_t len) {
-    Signature s = cast(priv)->Sign(msg, len);
-    sign = &s;
-}
-
-int blsVerify(blsPublicKey *pub, blsSignature *sign, const uint8_t *msg, size_t len) {
-    Signature *s = cast(sign);
-    s->SetAggregationInfo(AggregationInfo::FromMsg(*cast(pub), msg, len));
-    return s->Verify();
+int blsPrivateKeySerialize(uint8_t* buffer, blsPrivateKey *priv) {
+    std::vector<uint8_t> data = cast(priv)->Serialize();
+    buffer = &data[0];
+    return (int)(sizeof(buffer) / sizeof(buffer[0]));
 }

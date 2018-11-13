@@ -1,17 +1,25 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "../contrib/relic/include/relic_conf.h"
+#include "../contrib/relic/include/relic.h"
+#include "../contrib/relic/include/relic_test.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct {} blsPrivateKey;
+typedef struct {
+    bn_t* keydata;
+} blsPrivateKey;
+
 typedef struct {} blsPublicKey;
+
 typedef struct {} blsSignature;
 
 void blsPrivateKeyFromSeed(blsPrivateKey *priv, const uint8_t* seed, size_t seedLen);
 void blsPrivateKeyFromBytes(blsPrivateKey *priv);
-void blsPrivateKeySerialize(blsPrivateKey *priv, uint8_t* buffer);
+int blsPrivateKeySerialize(uint8_t* buffer, blsPrivateKey *priv);
 void blsPrivateKeySign(blsSignature *sign, const uint8_t *msg, size_t len);
 
 void blsPublicKeyFromBytes(blsPublicKey *pub, const uint8_t* key);

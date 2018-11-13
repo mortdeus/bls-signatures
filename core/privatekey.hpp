@@ -74,19 +74,17 @@ class PrivateKey {
     Signature Sign(const uint8_t *msg, size_t len) const;
     Signature SignPrehashed(const uint8_t *hash) const;
 
+    // Allocate memory for private key
+    void AllocateKeyData();
+
+    // The actual byte data
+    bn_t *keydata{nullptr};
  private:
     // Don't allow public construction, force static methods
     PrivateKey() {}
 
     // Multiply private key with n
     PrivateKey Mul(const bn_t n) const;
-
-    // Allocate memory for private key
-    void AllocateKeyData();
-
- private:
-    // The actual byte data
-    bn_t *keydata{nullptr};
 };
 } // end namespace bls
 

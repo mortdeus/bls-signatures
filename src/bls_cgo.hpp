@@ -17,7 +17,7 @@ void blsPrivateKeySign(blsSignature *sign, const uint8_t *msg, size_t len);
 void blsPublicKeyFromBytes(blsPublicKey *pub, const uint8_t* key);
 void blsPublicKeySerialize(blsPublicKey *pub, uint8_t* buffer);
 
-void blsGetPublicKey(blsPublicKey *pub, blsPrivateKey *priv);
+void blsGetPublicKey(void* pub, blsPrivateKey *priv);
 
 int blsVerify(blsPublicKey *pub, blsSignature *sign, const uint8_t *msg, size_t len);
 

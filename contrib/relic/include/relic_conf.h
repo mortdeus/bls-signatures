@@ -40,9 +40,9 @@
 /** Profiling support. */
 /* #undef PROFL */
 /** Error handling support. */
-#define CHECK
+/* #undef CHECK */
 /** Verbose error messages. */
-#define VERBS
+/* #undef VERBS */
 /** Trace support. */
 /* #undef TRACE */
 /** Build with overhead estimation. */
@@ -58,14 +58,14 @@
 /** Build with big-endian support. */
 /* #undef BIGED */
 /** Build shared library. */
-#define SHLIB
+/* #undef SHLIB */
 /** Build static library. */
 #define STLIB
 
 /** Number of times each test is ran. */
-#define TESTS    100
+#define TESTS    0
 /** Number of times each benchmark is ran. */
-#define BENCH    100
+#define BENCH    0
 
 /** Number of available cores. */
 #define CORES    1
@@ -196,13 +196,13 @@
 #define BN_METHD "COMBA;COMBA;MONTY;SLIDE;BASIC;BASIC"
 
 /** Prime field size in bits. */
-#define FP_PRIME 256
+#define FP_PRIME 381
 /** Number of Karatsuba steps. */
 #define FP_KARAT 0
 /** Prefer Pseudo-Mersenne primes over random primes. */
 /* #undef FP_PMERS */
 /** Use -1 as quadratic non-residue. */
-/* #undef FP_QNRES */
+#define FP_QNRES
 /** Width of window processing for exponentiation methods. */
 #define FP_WIDTH 4
 
@@ -211,7 +211,7 @@
 /** Integrated modular addtion. */
 #define INTEG    3
 /** Chosen prime field multiplication method. */
-#define FP_ADD   BASIC
+#define FP_ADD   INTEG
 
 /** Schoolbook multiplication. */
 #define BASIC    1
@@ -220,7 +220,7 @@
 /** Integrated modular multiplication. */
 #define INTEG    3
 /** Chosen prime field multiplication method. */
-#define FP_MUL   COMBA
+#define FP_MUL   INTEG
 
 /** Schoolbook squaring. */
 #define BASIC    1
@@ -231,7 +231,7 @@
 /** Reuse multiplication for squaring. */
 #define MULTP    4
 /** Chosen prime field multiplication method. */
-#define FP_SQR   COMBA
+#define FP_SQR   INTEG
 
 /** Division-based reduction. */
 #define BASIC    1
@@ -253,7 +253,7 @@
 /** Use implementation provided by the lower layer. */
 #define LOWER    7
 /** Chosen prime field inversion method. */
-#define FP_INV   MONTY
+#define FP_INV   LOWER
 
 /** Binary modular exponentiation. */
 #define BASIC    1
@@ -265,31 +265,31 @@
 #define FP_EXP   SLIDE
 
 /** Prime field arithmetic method */
-#define FP_METHD "BASIC;COMBA;COMBA;MONTY;MONTY;SLIDE"
+#define FP_METHD "INTEG;INTEG;INTEG;MONTY;LOWER;SLIDE"
 
 /** Basic quadratic extension field arithmetic. */
 #define BASIC    1
 /** Integrated extension field arithmetic. */
 #define INTEG    3
 /* Chosen extension field arithmetic method. */
-#define FPX_QDR   BASIC
+#define FPX_QDR   INTEG
 
 /** Basic cubic extension field arithmetic. */
 #define BASIC    1
 /** Integrated extension field arithmetic. */
 #define INTEG    3
 /* Chosen extension field arithmetic method. */
-#define FPX_CBC   BASIC
+#define FPX_CBC   INTEG
 
 /** Basic quadratic extension field arithmetic. */
 #define BASIC    1
 /** Lazy-reduced extension field arithmetic. */
 #define LAZYR    2
 /* Chosen extension field arithmetic method. */
-#define FPX_RDC   BASIC
+#define FPX_RDC   LAZYR
 
 /** Prime extension field arithmetic method */
-#define FPX_METHD "BASIC;BASIC;BASIC"
+#define FPX_METHD "INTEG;INTEG;LAZYR"
 
 /** Irreducible polynomial size in bits. */
 #define FB_POLYN 283
@@ -391,9 +391,9 @@
 #define FB_METHD "LODAH;LUTBL;QUICK;QUICK;QUICK;QUICK;EXGCD;SLIDE;QUICK"
 
 /** Support for ordinary curves. */
-#define EP_PLAIN
+/* #undef EP_PLAIN */
 /** Support for supersingular curves. */
-#define EP_SUPER
+/* #undef EP_SUPER */
 /** Support for prime curves with efficient endormorphisms. */
 #define EP_ENDOM
 /** Use mixed coordinates. */
@@ -588,10 +588,10 @@
 /** Lazy-reduced extension field arithmetic. */
 #define LAZYR    2
 /* Chosen extension field arithmetic method. */
-#define PP_EXT   BASIC
+#define PP_EXT   LAZYR
 
 /** Bilinear pairing method. */
-#define PP_METHD "BASIC;OATEP"
+#define PP_METHD "LAZYR;OATEP"
 
 /** Tate pairing. */
 #define TATEP    1
@@ -708,7 +708,7 @@
 /** POSIX multithreading support. */
 #define PTHREAD  2
 /** Chosen multithreading API. */
-#define MULTI    RELIC_NONE
+#define MULTI    PTHREAD
 
 /** Per-process high-resolution timer. */
 #define HREAL    1
@@ -723,7 +723,7 @@
 /** Cycle-counting timer. */
 #define CYCLE    6
 /** Chosen timer. */
-#define TIMER    HPROC
+#define TIMER    CYCLE
 
 /** Prefix to identity this build of the library. */
 /* #undef LABEL */

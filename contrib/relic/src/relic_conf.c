@@ -40,7 +40,6 @@
 #include "relic_ed.h"
 #include "relic_ec.h"
 #include "relic_pc.h"
-#include "relic_bench.h"
 
 /*============================================================================*/
 /* Public definitions                                                         */

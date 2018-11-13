@@ -1,0 +1,42 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/prysmaticslabs/bls-signatures
+gazelle(name = "gazelle")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "aggregationinfo.cpp",
+        "aggregationinfo.hpp",
+        "bls.cpp",
+        "bls.go",
+        "bls.hpp",
+        "bls_cgo.cpp",
+        "bls_cgo.hpp",
+        "chaincode.cpp",
+        "chaincode.hpp",
+        "privatekey.cpp",
+        "privatekey.hpp",
+        "publickey.cpp",
+        "publickey.hpp",
+        "signature.cpp",
+        "signature.hpp",
+        "util.hpp",
+    ],
+    cgo = True,
+    cdeps = ["//:relic"],
+    clinkopts = ["-L contrib/relic/lib -lrelic_s -lstdc++"],
+    copts = [
+        "-I contrib/relic/include -I contrib/relic/core -I contrib/relic/lib",
+        "-std=c++11",
+    ],
+    importpath = "github.com/prysmaticslabs/bls-signatures/core",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["bls_test.go"],
+    embed = [":go_default_library"],
+)

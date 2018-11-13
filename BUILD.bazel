@@ -1,8 +1,23 @@
-load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@bazel_gazelle//:def.bzl", "gazelle")
 
 # gazelle:prefix github.com/prysmaticslabs/bls-signatures
 gazelle(name = "gazelle")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "core/bls.go",
+    ],
+    cdeps = [":bls-signatures-lib"],
+    cgo = True,
+    clinkopts = ["-L/home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/lib -lrelic_s -lstdc++"],
+    copts = [
+        "-I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/include -I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/core -I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/lib",
+    ],
+    importpath = "github.com/prysmaticslabs/bls-signatures/core",
+    visibility = ["//visibility:public"],
+)
 
 cc_library(
     name = "relic",
@@ -40,7 +55,6 @@ cc_library(
         "contrib/relic/src/cp/relic_cp_phpe.c",
         "contrib/relic/src/cp/relic_cp_rabin.c",
         "contrib/relic/src/cp/relic_cp_rsa.c",
-        "contrib/relic/src/cp/relic_cp_sokaka.c",
         "contrib/relic/src/cp/relic_cp_vbnn_ibs.c",
         "contrib/relic/src/cp/relic_cp_zss.c",
         "contrib/relic/src/dv/relic_dv_mem.c",
@@ -167,7 +181,6 @@ cc_library(
         "contrib/relic/src/rand/relic_rand_hash.c",
         "contrib/relic/src/rand/relic_rand_rdrnd.c",
         "contrib/relic/src/rand/relic_rand_udev.c",
-        "contrib/relic/src/relic_bench.c",
         "contrib/relic/src/relic_conf.c",
         "contrib/relic/src/relic_core.c",
         "contrib/relic/src/relic_err.c",
@@ -183,7 +196,6 @@ cc_library(
         "contrib/relic/include/relic.h",
         "contrib/relic/include/relic_arch.h",
         "contrib/relic/include/relic_bc.h",
-        "contrib/relic/include/relic_bench.h",
         "contrib/relic/include/relic_bn.h",
         "contrib/relic/include/relic_conf.h",
         "contrib/relic/include/relic_core.h",
@@ -229,20 +241,16 @@ cc_library(
         "core/aggregationinfo.cpp",
         "core/bls.cpp",
         "core/chaincode.cpp",
-        "core/extendedprivatekey.cpp",
-        "core/extendedpublickey.cpp",
         "core/privatekey.cpp",
         "core/publickey.cpp",
         "core/signature.cpp",
         "contrib/relic/lib/librelic_s.a",
     ],
     hdrs = [
-        "core/bls_cgo.h",
+        "core/bls_cgo.hpp",
         "core/aggregationinfo.hpp",
         "core/bls.hpp",
         "core/chaincode.hpp",
-        "core/extendedprivatekey.hpp",
-        "core/extendedpublickey.hpp",
         "core/privatekey.hpp",
         "core/publickey.hpp",
         "core/signature.hpp",
@@ -272,27 +280,4 @@ cc_test(
         ":bls-signatures-lib",
     ],
     tags = ["manual"],  # this target doesn't build.
-)
-
-go_library(
-    name = "go_default_library",
-    srcs = [
-        "core/bls.go",
-        "core/bls_cgo.h",
-        "core/bls_cgo.cpp",
-    ],
-    cdeps = [":bls-signatures-lib", ":relic"],
-    cgo = True,
-    clinkopts = ["-lstdc++"],
-    copts = [
-        "-I src -I contrib/relic/include",
-    ],
-    importpath = "github.com/prysmaticslabs/bls-signatures",
-    visibility = ["//visibility:public"],
-)
-
-go_test(
-    name = "go_default_test",
-    srcs = ["src/bls_test.go"],
-    embed = [":go_default_library"],
 )

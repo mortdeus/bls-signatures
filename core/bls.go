@@ -1,9 +1,9 @@
 package bls
 
 /*
-#cgo CFLAGS:-I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/include -I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/core -I /home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/lib
+#cgo CFLAGS:-I ../contrib/relic/include -I ../contrib/relic/core -I ../contrib/relic/lib
 #cgo CXXFLAGS: -std=c++11
-#cgo LDFLAGS:-L/home/zypherx/Desktop/Code/Cpp/prysmaticlabs/bls-signatures/contrib/relic/lib -lrelic_s -lstdc++
+#cgo LDFLAGS:-L ../contrib/relic/lib -lrelic_s -lstdc++
 #include "bls_cgo.hpp"
 */
 import "C"
